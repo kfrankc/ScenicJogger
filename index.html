@@ -11,10 +11,14 @@
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js"></script>
+  <script src="src/StreetviewSequence.js"></script>
 	<script src="js/map.js"></script>
 
 </head>
@@ -83,6 +87,12 @@
 		<i id="searchIcon" onmouseenter="this.style.color='#4285f4';" onmouseleave="this.style.color='#B7B7B7';" class="fa fa-search fa-lg"></i>
 	</div>
 	<div id="directions_panel" style="z-index: 99"></div>
+	<div id="route-progress-container">
+      <div class="progress">
+          <div class="progress-bar"></div>
+      </div>
+  </div>
+  <div id="hyperlapse"></div>
 
 	<script type="text/javascript">
 

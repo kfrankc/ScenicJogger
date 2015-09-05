@@ -5,6 +5,7 @@
   top: 0;
   left: 0;
   z-index: 0; /* Set z-index to 0 as it will be on a layer below the contact form */
+  opacity: 0;
 }
 
 #nav {

@@ -89,29 +89,76 @@ function initialize() {
 
   var waypoints = [];
   waypoints.push({
-    location: 'Comcast Center',
+    location: 'Comcast Center, Philadelphia, PA',
     stopover: true
   });
-  calcRoute(waypoints);
+  waypoints.push({
+    location: 'The Navy Yard, 4747 S Broad St, Philadelphia, PA 19112',
+    stopover: true
+  });
+  waypoints.push({
+    location: 'FDR Park, 1500 Pattison Ave, Philadelphia, PA 19145',
+    stopover: true
+  });
+  waypoints.push({
+    location: '1609 Snyder Ave, Philadelphia, PA 19145',
+    stopover: true
+  });
+  waypoints.push({
+    location: 'Mifflin Park, 6th St & Ritner St, Philadelphia, PA 19148',
+    stopover: true
+  });
+
+
+  getOptimizedRouteLength(waypoints);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
 
+function getClosestWaypoint(ogLocation, waypoints) {
+  var ogLat = ogLocation.latitude;
+  var ogLong = ogLocation.longitude;
+  var minDistance;
+  var nearestWaypoint;
+  for (var i = 0; i < waypoints.length; i++) {
+    var waypoint = waypoints[i];
+    var waypointLat = waypoint.latitude;
+    var waypointLong = waypoint.longitude;
+    var distance = Math.pow(ogLat - waypointLat, 2) + Math.pow(ogLong - waypointLong, 2);
+    if (distance < minDistance) {
+      minDistance = distance;
+      nearestWaypoint = waypoint;
+    }
+    // we're given the single waypoint's longitude and latitude.
+    // Want to calculate the Euclidian distance between location and the waypoint.
+  }
+  return nearestWaypoint;
+}
 
+function getOptimizedRoute(maxLength, startLocation, waypoints) { 
+  // maxLength is the longest distance user wants to travel
+  // Get closest waypoint to startLocation.
+  var firstWaypoint = getClosestWaypoint(startLocation, waypoints);
+  var routeLength = getOptimizedRouteLength(firstWaypoint);
+
+  var previousWaypoint = firstWaypoint;
+  /*while (routeLength < maxLength) {
+    var nextWaypoint = getClosestWaypoint(previousWaypoint);
+    routeLength = getOptimizedRouteLength()
+  }*/
+}
 
 
 
 // We can generate 3 random routes, by selecting a random subset of the set of waypoints
 // which fall within the boundary radius and the direction.
 
-function calcRoute(waypoints) { // waypoints is an array
+function getOptimizedRouteLength(waypoints) { // waypoints is an array
   var start = 'Rodin College House, Philadelphia, PA';
-  console.log(start);
-  var end = 'Wells Fargo Center, Philadelphia, PA';
   var request = {
     origin: start,
-    destination: end,
+    destination: start, // want to end where we started
     waypoints: waypoints,
     optimizeWaypoints: true,
     travelMode: google.maps.TravelMode.WALKING
@@ -119,12 +166,15 @@ function calcRoute(waypoints) { // waypoints is an array
   console.log('got here');
   directionsService.route(request, function(response, status) {
     console.log(response);
+    playHyperlapse(response);
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
       var route = response.routes[0];
       var summaryPanel = document.getElementById('directions_panel');
       summaryPanel.innerHTML = '';
       // For each route, display summary information.
+      var routeLength = 0.0;
+      var routeSegmentLength;
       for (var i = 0; i < route.legs.length; i++) {
         var routeSegment = i + 1;
         summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
@@ -132,10 +182,34 @@ function calcRoute(waypoints) { // waypoints is an array
         summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
         summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
         summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+        routeSegmentLength = parseFloat(route.legs[i].distance.text);
+        routeLength += routeSegmentLength;
       }
+      console.log('Route Length: ' + routeLength);
     } else {
       window.alert('Directions request failed to ' + status);
     }
+    return routeLength;
+  });
+}
+
+function playHyperlapse(hyperlapseResponse) {
+  var routeSequence = StreetviewSequence('#hyperlapse', {
+    route: hyperlapseResponse,
+    duration: 10000,
+    key: 'AIzaSyD51Ia5v17tRyd5SCem4RQ1QveLR6Y83Fk',
+    loop: true,
+    width: 585,
+    height: 585
+  });
+  var $routeProgressContainer = $("#route-progress-container");
+  var $routeProgressBar = $routeProgressContainer.find('.progress-bar');
+  routeSequence.progress(function (p) {
+      $routeProgressBar.css({width: (p * 100) + '%'});
+  });
+  routeSequence.done(function(player) {
+      $routeProgressContainer.hide();
+      player.play();
   });
 }
 
