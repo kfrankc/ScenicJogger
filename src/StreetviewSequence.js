@@ -273,8 +273,8 @@
             var domain;
             var parameters = {};
             var resource;
-
-            domain = 'https://maps.googleapis.com';
+            //domain = ('undefined' !== typeof options.domain) ? options.domain : window.location.protocol + '//maps.googleapis.com';
+            domain = 'http://maps.googleapis.com';
 
             if ('undefined' !== typeof options.key) {
                 parameters.key = options.key;
@@ -291,7 +291,6 @@
             if ('undefined' !== typeof options.client) {
                 parameters.client = options.client;
             }
-
             resource = domain + PATH + '?' + $.param(parameters);
 
             return resource;
