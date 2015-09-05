@@ -102,7 +102,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 
 
-
+// We can generate 3 random routes, by selecting a random subset of the set of waypoints
+// which fall within the boundary radius and the direction.
 
 function calcRoute(waypoints) { // waypoints is an array
   var start = 'Rodin College House, Philadelphia, PA';
