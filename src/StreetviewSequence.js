@@ -274,7 +274,7 @@
             var parameters = {};
             var resource;
 
-            domain = ('undefined' !== typeof options.domain) ? options.domain : window.location.protocol + '//maps.googleapis.com';
+            domain = 'https://maps.googleapis.com';
 
             if ('undefined' !== typeof options.key) {
                 parameters.key = options.key;
