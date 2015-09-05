@@ -1,0 +1,21 @@
+#googlemaps {
+  height: 100%;
+  width: 100%;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  z-index: 0; /* Set z-index to 0 as it will be on a layer below the contact form */
+}
+
+#nav {
+text-align:center;
+	position: fixed;
+	width: 100%;
+	height: 60px;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	background: white;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
