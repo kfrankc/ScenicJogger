@@ -118,6 +118,7 @@ function calcRoute(waypoints) { // waypoints is an array
   };
   console.log('got here');
   directionsService.route(request, function(response, status) {
+    console.log(response);
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
       var route = response.routes[0];
