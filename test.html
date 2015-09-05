@@ -60,17 +60,17 @@
             //-- Route
             var directionsService = new google.maps.DirectionsService();
             var directionsRoute = directionsService.route({
-                destination: new google.maps.LatLng(33.8974391098385,-116.6136966801696),
-                origin: new google.maps.LatLng(33.9063,-116.56344000000001),
+                destination: new google.maps.LatLng(34.325034, -118.503087),
+                origin: new google.maps.LatLng(34.067167,-118.461742),
                 travelMode: google.maps.TravelMode.DRIVING
             }, function (DirectionsResult, DirectionsStatus) {
                 var routeSequence = StreetviewSequence('#route', {
                     route: DirectionsResult,
-                    duration: 5000,
+                    duration: 10000,
                     key: 'AIzaSyD51Ia5v17tRyd5SCem4RQ1QveLR6Y83Fk',
                     loop: true,
                     width: 585,
-                    height: 325
+                    height: 585
                 });
 
                 var $routeProgressContainer = $("#route-progress-container");
