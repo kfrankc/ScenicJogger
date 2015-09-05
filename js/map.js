@@ -113,7 +113,7 @@ function calcRoute(waypoints) { // waypoints is an array
     destination: end,
     waypoints: waypoints,
     optimizeWaypoints: true,
-    travelMode: google.maps.TravelMode.DRIVING
+    travelMode: google.maps.TravelMode.WALKING
   };
   console.log('got here');
   directionsService.route(request, function(response, status) {
