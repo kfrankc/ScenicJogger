@@ -28,14 +28,25 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('googlemaps'), mapOptions);
   directionsDisplay.setMap(map);
 
-  if (navigator.geolocation) {
+  var input = document.getElementById('searchBox');
+  console.log(input);
+
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  //autocomplete.bindTo('bounds', map);
+
+
+  /*if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
       initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       map.setCenter(initialLocation);
     });
-  }
+  }*/
 
-  var waypoints = ['Comcast Center'];
+  var waypoints = [];
+  waypoints.push({
+    location: 'Comcast Center',
+    stopover: true
+  });
   calcRoute(waypoints);
 }
 
@@ -52,9 +63,10 @@ function calcRoute(waypoints) { // waypoints is an array
     optimizeWaypoints: true,
     travelMode: google.maps.TravelMode.DRIVING
   };
-  directionsService.route(request, function(result, status) {
+  console.log('got here');
+  directionsService.route(request, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(result);
+      directionsDisplay.setDirections(response);
       var route = response.routes[0];
       var summaryPanel = document.getElementById('directions_panel');
       summaryPanel.innerHTML = '';
