@@ -11,16 +11,58 @@
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 
+	<link rel="shortcut icon" type="image/png" href="favicon.png" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
 	<script src="js/map.js"></script>
 
 </head>
 <body>
+	<style>
+	#searchBox { 
+		position: absolute; 
+		top: 13px; 
+		left: 18px; 
+		z-index: 99;     
+		color: inherit;
+		font-size: 15px;
+		margin: 0 !important;
+		padding: 0 !important;
+		outline: 0;
+		width: 80%;
+		height: 24px !important;
+		line-height: 24px;
+		transition-property: color;
+		transition-duration: 0.3s; 
+		border-color: transparent;
+	}
+	#searchContainer { 
+		position: relative;
+		background: #fff;
+		border-radius: 2px;
+		box-sizing: border-box;
+		width: 370px;
+		height: 48px;
+		border-bottom: 1px solid transparent;
+		padding: 12px 30px 11px 64px;
+		transition-property: background,box-shadow;
+		transition-duration: 0.3s;
+		box-shadow: 0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
+	}
+	</style>
+
+	<!-- <div id="wrapper"> -->
 
 	<div id="googlemaps"></div>
-	<div id="nav">
+	<div id="searchContainer">
+		<input id="searchBox" placeholder= "Enter a location" style="z-index: 100" type="text"></input>
+		<i class="fa fa-search fa-lg" style="color: #B7B7B7; float: right; margin-top: 2px"></i>
 	</div>
+	<div id="directions_panel"></div>
 
-</body>
+	<!-- </div> -->
+
+</body>		
+
 </html>

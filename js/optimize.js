@@ -11,3 +11,15 @@ in the user-chosen direction.
     than the max travel distance, and remove that last-added landmark.
   b. At each current landmark, choose the closest landmark to that current landmark.
 */
+
+function getLandmarks() {
+
+}
+
+function buildPath() {
+  
+}
+
+function getOptimizedPathLength() {
+
+}
