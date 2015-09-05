@@ -79,8 +79,9 @@
 
             tween = TweenLite.to(
                 { currentTime: 0 },
-                options.duration / 1000,
+                options.duration / 700,
                 {
+
                     currentTime: options.duration,
                     onComplete: ended,
                     onReverseComplete: ended,
