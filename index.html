@@ -13,6 +13,7 @@
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
 	<script src="js/map.js"></script>
 
@@ -35,6 +36,7 @@
 		transition-property: color;
 		transition-duration: 0.3s; 
 		border-color: transparent;
+		font-family: 'Open Sans', sans-serif;
 	}
 	#searchContainer { 
 		position: relative;
@@ -49,18 +51,25 @@
 		transition-duration: 0.3s;
 		box-shadow: 0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
 	}
+	#searchIcon {
+		color: #B7B7B7; 
+		float: right; 
+		margin-top: 6px;
+		font-size: 1.1em;
+		cursor: pointer;
+	}
 	</style>
-
-	<!-- <div id="wrapper"> -->
 
 	<div id="googlemaps"></div>
 	<div id="searchContainer">
-		<input id="searchBox" placeholder= "Enter a location" style="z-index: 100" type="text"></input>
-		<i class="fa fa-search fa-lg" style="color: #B7B7B7; float: right; margin-top: 2px"></i>
+		<input id="searchBox" placeholder= "Enter a location" type="text"></input>
+		<i id="searchIcon" onmouseenter="this.style.color='#4285f4';" onmouseleave="this.style.color='#B7B7B7';" class="fa fa-search fa-lg"></i>
 	</div>
 	<div id="directions_panel"></div>
 
-	<!-- </div> -->
+	<script type="text/javascript">
+
+	</script>
 
 </body>		
 
