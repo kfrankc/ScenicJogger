@@ -39,12 +39,12 @@
             easePitch: Power0.easeIn,
             easeRoute: Power0.easeIn,
             headingSkewStart: 0,
-            height: 150,
+            height: 600,
             loop: false,
             pitchSkewStart: 0,
             sensor: false,
-            totalFrames: 5000,
-            width: 300
+            totalFrames: 600,
+            width: 1000
         };
         var headingCache = {};
         var images;

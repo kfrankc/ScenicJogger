@@ -5,15 +5,15 @@ function hyperlapse(start_lat, start_long, end_lat, end_long) {
     var directionsRoute = directionsService.route({
         destination: new google.maps.LatLng(end_lat, end_long),
         origin: new google.maps.LatLng(start_lat, start_long),
-        travelMode: google.maps.TravelMode.WALKING
+        travelMode: google.maps.TravelMode.DRIVING
     }, function (DirectionsResult, DirectionsStatus) {
             var routeSequence = StreetviewSequence('#route', {
                 route: DirectionsResult,
-                duration: 10000,
+                duration: 5000,
                 key: 'AIzaSyD51Ia5v17tRyd5SCem4RQ1QveLR6Y83Fk',
-                loop: false,
-                width: 585,
-                height: 585
+                loop: true,
+                width: 1000,
+                height: 600
             });
 
             var $routeProgressContainer = $("#route-progress-container");
@@ -28,4 +28,4 @@ function hyperlapse(start_lat, start_long, end_lat, end_long) {
         });
 };
 
-hyperlapse(39.952766, -75.200822, 39.901980, -75.172890);
+hyperlapse(39.951559, -75.163889, 39.901421, -75.172152);
