@@ -4,9 +4,22 @@ var accountSid = 'ACf2f8b667dca1c7385d13be6d77f87afa';
 var authToken = 'e27d26eba13984b9c56b95b36840b0ac';
 var yelpScript = require('./js/yelpScript');
 
+app.set('port', process.env.PORT || 3000);
+
+// serve static pages
+var path = require('path')
+app.set('views', __dirname + '/views');
+app.engine('.html', require('ejs').__express);
+app.set('view engine', 'html');
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 app.get('/', function (req, res) {
 	// render index.html
+	res.render('index');
 });
 
 
@@ -46,11 +59,8 @@ app.get('/yelpScript', function (req, res) {
 	yelpScript.getPlaces();
 })
 
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log('Example app listening at http://%s:%s', host, port);
+var server = app.listen(app.get('port'), function() {
+  console.log('Our app is running on port %d', server.address().port);
 });
 
 
