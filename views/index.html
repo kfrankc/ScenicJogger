@@ -149,8 +149,8 @@
 		position: fixed;
 		background: #fff;
 		box-sizing: border-box;
-		width: 600px;
-		height: 400px;
+		width: 620px;
+		height: 620px;
 		padding: 10px 10px 10px 10px;
 		transition-property: background,box-shadow;
 		transition-duration: 0.3s;
@@ -320,6 +320,10 @@
 		if (thisIndex === 3) {
 			playHyperlapse(hyperlapseResponses.westResponse);
 		}
+		$('body').on('click', '#googlemaps', function() {
+			console.log('clicked outside hyperlapse-canvas');
+			$('#hyperlapse-canvas').remove();
+		});
 
 	});
 
