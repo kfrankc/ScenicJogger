@@ -11,10 +11,22 @@ var hyperlapseResponses = {};
 
 function initialize() {
   var latLng = new google.maps.LatLng(position[0], position[1]);
-  directionsDisplayNorth = new google.maps.DirectionsRenderer();
-  directionsDisplayEast = new google.maps.DirectionsRenderer();
-  directionsDisplaySouth = new google.maps.DirectionsRenderer();
-  directionsDisplayWest = new google.maps.DirectionsRenderer();
+  directionsDisplayNorth = new google.maps.DirectionsRenderer({
+    polylineOptions: {
+      strokeColor: "red"
+    }});
+  directionsDisplayEast = new google.maps.DirectionsRenderer({
+      polylineOptions: {
+      strokeColor: "green"
+    }});
+  directionsDisplaySouth = new google.maps.DirectionsRenderer({
+    polylineOptions: {
+      strokeColor: "blue"
+    }});
+  directionsDisplayWest = new google.maps.DirectionsRenderer({
+    polylineOptions: {
+      strokeColor: "orange"
+    }});    
 
   var mapOptions = {
     zoom: 16, // initialize zoom level - the max value is 21
@@ -94,7 +106,7 @@ function initialize() {
     console.log(startingLat);
     console.log(startingLong);
     var radius = 3000;
-    // set radius to be a constant 3,000 meters for now.
+    //set radius to be a constant 3,000 meters for now.
     addYelpWaypoints(startingLat, startingLong, radius, 'North');
     addYelpWaypoints(startingLat, startingLong, radius, 'East');
     addYelpWaypoints(startingLat, startingLong, radius, 'South');
@@ -104,6 +116,7 @@ function initialize() {
 
 function addYelpWaypoints(startingLat, startingLong, radius, direction) { // direction is a string
   var waypoints = [];
+  if (direction === 'East') { radius = 3500;}
   $.ajax({
     url: '/yelpScript?lat=' + startingLat + '&long=' + startingLong + '&radius=' + radius
   }).done(function(data) {
@@ -126,6 +139,9 @@ function addYelpWaypoints(startingLat, startingLong, radius, direction) { // dir
       });
     }
     console.log(waypoints);
+    if(waypoints.length>=8){
+      waypoints.slice(0, 7)
+    }
     if (direction === 'North') {
       getOptimizedRouteLength(waypoints, startingLat, startingLong, 'North');
     }
@@ -136,6 +152,8 @@ function addYelpWaypoints(startingLat, startingLong, radius, direction) { // dir
       getOptimizedRouteLength(waypoints, startingLat, startingLong, 'South');
     }
     if (direction === 'West') {
+      waypoints.shift();
+      waypoints.shift();
       getOptimizedRouteLength(waypoints, startingLat, startingLong, 'West');
     }
   });
@@ -241,7 +259,7 @@ function getOptimizedRouteLength(waypoints, startingLat, startingLong, direction
         $('#south-route-distance').text(routeLength + ' mi');
       }
       if (direction === 'West') {
-        $('#west-route-distance').text(routeLength + ' mi');
+        $('#west-route-distance').text(routeLength + '.0 mi');
       }
       console.log('Route Length: ' + routeLength);
     } else {
