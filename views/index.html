@@ -9,12 +9,12 @@
 
 	<meta name="viewport" content="user-scalable=no" />
 
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
 
 	<link rel="shortcut icon" type="image/png" href="favicon.png" />
 
-	<script src="jquery-1.11.3.min.js"></script>
+
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> 
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -23,9 +23,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js"></script>
-	<script src="src/StreetviewSequence.js"></script>
-	<script src="js/map.js"></script>
-	<script src="js/yelpCopy.js"></script>
+	<script src="../src/StreetviewSequence.js"></script>
+	<script src="../js/map.js"></script>
 
 
 </head>
@@ -94,6 +93,7 @@
 		left: -2px;
 		top: 15px;
 		margin-bottom: 10px;
+		z-index:5;
 	}
 	.routeDistance {
 		float: right;
@@ -102,11 +102,13 @@
 		font-family: 'Open Sans', sans-serif;
 		color: #68A517;
 		margin-top: -30px;
+		z-index:5;
 	}
 	.routeToggle {
 		float: right;
 		position: relative;
 		margin-top: -28px;
+		z-index:5;
 	}
 	.routeName {
 		float: left;
@@ -114,6 +116,7 @@
 		font-family: 'Open Sans', sans-serif;
 		font-weight: 300;
 		margin-top: -30px;
+		z-index:5;
 	}
 	#sideHeader {
 		background-color: #5987FB;
@@ -121,11 +124,13 @@
 		top: 0;
 		left: 0;
 		width: 300px;
+		
 	}
 	#sideHeader  h3{
 		padding-left: 20px;
 		color: #fff;
 		font-family: 'Open Sans', sans-serif;
+		z-index:5;
 	}
 	</style>
 
