@@ -13,13 +13,13 @@ var async = require('async');
 
 
 function getPlaces(lat, lng, radius){
-	yelp.search({category_filter:"landmarks,parks,gardens,lakes", radius_filter: radius, ll: lat + "," + lng}, function(error, data) {
-	 	if(error) console.error("Error getting places: " + error);
+	yelp.search({category_filter: 'landmarks,parks,gardens,lakes', radius_filter: radius, ll: lat + ',' + lng}, function(error, data) {
+	 	if(error) console.error('Error getting places: ' + error);
 	  var places = data.businesses;
 	  var i =0
 	  async.eachSeries(places, function iteratior(place, callback){
-	  	https.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + 
-  		place.location.display_address + "&bounds=39.992538,-75.126751|39.901903,-75.330935&key=AIzaSyD5wgNjyAarvIDk3WF-ISlYIRiCBKc4kEc", function(response) {
+	  	https.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + 
+  		place.location.display_address + '&bounds=40,-75.0|39.8,-75.5&key=AIzaSyD5wgNjyAarvIDk3WF-ISlYIRiCBKc4kEc', function(response) {
 	      var body = '';
 	      response.on('data', function(d) {
 	          body += d;
@@ -28,7 +28,7 @@ function getPlaces(lat, lng, radius){
 	        var parsed = JSON.parse(body);
 					places[i].location.lat = parsed.results[0].geometry.location.lat;
 					places[i].location.lng = parsed.results[0].geometry.location.lng;
-					i++
+					i++;
 					callback();
 			  });
 		  });
