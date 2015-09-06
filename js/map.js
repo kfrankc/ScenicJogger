@@ -25,7 +25,7 @@ function initialize() {
     }});
   directionsDisplayWest = new google.maps.DirectionsRenderer({
     polylineOptions: {
-      strokeColor: "orange"
+      strokeColor: "purple"
     }});    
 
   var mapOptions = {
