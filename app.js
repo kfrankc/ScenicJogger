@@ -13,7 +13,7 @@ app.set('views', __dirname + '/views');
 app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html');
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
