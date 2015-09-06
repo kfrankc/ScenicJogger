@@ -2,8 +2,15 @@ var express = require('express');
 var app = express();
 var accountSid = 'ACf2f8b667dca1c7385d13be6d77f87afa';
 var authToken = 'e27d26eba13984b9c56b95b36840b0ac';
+var yelpScript = require('./js/yelpScript');
+
 
 app.get('/', function (req, res) {
+	// render index.html
+});
+
+
+app.get('/twilio', function (req, res) {
 	console.log(req.query['maplink']);	
 	//require the Twilio module and create a REST client
 	var client = require('twilio')(accountSid, authToken);
@@ -31,6 +38,13 @@ app.get('/', function (req, res) {
 		});
 	}	
 });
+
+app.get('/yelpScript', function (req, res) {
+	var lat = req.query.lat;
+	var long = req.query.long;
+	var radius = req.query.radius;
+	yelpScript.getPlaces();
+})
 
 var server = app.listen(3000, function () {
   var host = server.address().address;
