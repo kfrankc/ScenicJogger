@@ -4,18 +4,9 @@ var yelp = require("yelp").createClient({
 	  token: "HkFVR9my4vJXV6hOptlKC4iFvFy0biBo",
 	  token_secret: "38HaEmolkwWRtAypcJxrmpQ8Uoo"
 });
-var geocoderProvider = 'google';
-var httpsAdapter = 'https';
 var https = require('https');
 var exports = module.exports = {};
 var async = require('async');
-// optionnal
-var extra = {
-    apiKey: 'AIzaSyD5wgNjyAarvIDk3WF-ISlYIRiCBKc4kEc', // for Mapquest, OpenCage, Google Premier
-    formatter: null         // 'gpx', 'string', ...
-};
-
-var geocoder = require('node-geocoder')(geocoderProvider, httpsAdapter, extra);
 /*
 @param radius: radius in meters
 */
