@@ -130,8 +130,7 @@ function addYelpWaypoints(startingLat, startingLong, radius, direction) { // dir
       var directionalPlace = directionalPlaces[i];
       var lat = directionalPlace.location.coordinate.latitude;
       var long = directionalPlace.location.coordinate.longitude;
-      console.log('lat: ' + lat);
-      console.log('long: ' + long);
+      console.log(direction + ': ' + directionalPlace.name);
       var googleLatLng = new google.maps.LatLng(lat, long);
       waypoints.push({
         location: googleLatLng,
@@ -210,7 +209,8 @@ function getOptimizedRouteLength(waypoints, startingLat, startingLong, direction
     destination: start, // want to end where we started
     waypoints: waypoints,
     optimizeWaypoints: true,
-    travelMode: google.maps.TravelMode.WALKING
+    travelMode: google.maps.TravelMode.WALKING,
+    avoidHighways: true
   };
   console.log('got here');
   directionsService.route(request, function(response, status) {
