@@ -9,9 +9,9 @@ function hyperlapse(start_lat, start_long, end_lat, end_long) {
     }, function (DirectionsResult, DirectionsStatus) {
             var routeSequence = StreetviewSequence('#route', {
                 route: DirectionsResult,
-                duration: 20000,
+                duration: 10000,
                 key: 'AIzaSyD51Ia5v17tRyd5SCem4RQ1QveLR6Y83Fk',
-                loop: true,
+                loop: false,
                 width: 585,
                 height: 585
             });
