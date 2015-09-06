@@ -30,7 +30,7 @@ app.get('/twilio', function (req, res) {
 	var client = require('twilio')(accountSid, authToken);
 	// declare an array of strings
 	// put phone numbers in array
-	var numbers = '+15105658237';
+	var numbers = req.query['maplink'];
 	for (i=0; i < numbers.length; i++) {
 		// client.makeCall({
 		// 	to:numbers[i], // frank
@@ -46,21 +46,7 @@ app.get('/twilio', function (req, res) {
 		client.messages.create({ 
 			to: numbers, 
 			from: "+16504223049", // ruthie's twilio
-			body: "Thanks for using ScenicJogging! Here is your Route: 
-					North: FDR Park
-					North: Mifflin Park
-					North: Philadelphia Korean War Memorial at Penn's Landing
-
-					East: Mifflin Park
-					East: Dickinson Square Park
-
-					South: The Navy Yard
-					South: FDR Skatepark
-
-					West: FDR Park
-					West: The Navy Yard
-					West: FDR Skatepark
-					West: Philadelphia Korean War Memorial at Penn's Landing", 
+			body: "Thanks for using ScenicJogging! Here is your Route: North: http://bit.ly/1LRGLQt East: http://bit.ly/1Fr5kPs South:  http://bit.ly/1NVXPbc West: ", 
 		}, function(err, message) { 
 			console.log(message.sid); 
 		});
