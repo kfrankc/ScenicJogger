@@ -5,7 +5,8 @@
 body {
   background: #fff;
 }
-  #googlemaps {
+  
+#googlemaps {
   height: 100%;
   width: 100%;
   float: right;
@@ -18,7 +19,7 @@ body {
 }
 
 #nav {
-text-align:center;
+  text-align:center;
 	position: fixed;
 	width: 100%;
 	height: 60px;
@@ -26,6 +27,6 @@ text-align:center;
 	left: 0;
 	z-index: 2;
 	background: white;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
 }

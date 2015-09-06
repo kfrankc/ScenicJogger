@@ -80,6 +80,24 @@
 		top: 54px !important;
 		box-shadow: none !important;
 	}
+	.hyperlapse-canvas {
+		position: relative;
+		background: #fff;
+		box-sizing: border-box;
+		width: 600px;
+		height: 500px;
+		padding: 40px 10px 0px 10px;
+		transition-property: background,box-shadow;
+		transition-duration: 0.3s;
+		box-shadow: 2px 4px 6px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
+		/*z-index: 99;*/
+		left: 450px;
+		top: 5px;
+		margin-bottom: 10px;
+		z-index:5;
+
+	}
+
 	.routeLister {
 		position: relative;
 		background: #fff;
@@ -144,21 +162,35 @@
 		<div id="sideHeader">
 			<h3>Directions <i style="position: fixed; top: 23px; margin-left: 150px; cursor: pointer" class="fa fa-times"></i></h3>
 		</div>
+
 		<div class ="routeLister">
-			<div class="routeName">Route 1</div>
+			<div class="routeName">North Route</div>
 			<a href = "#" class="play" data-divid="div1">
 			<div class="routeToggle"><i style="color: #000" class="fa fa-play"></i></div></a>
-			<div class="routeDistance">11.4 mi</div>
-			
-			<!-- <div id="directions_panel" style="z-index: 99"></div> -->
+			<div id="north-route-distance"></div>
 		</div>
 		<div class ="routeLister">
-			<div class="routeName">Route 2</div>
-			<a href = "#" class="play" data-divid="div1"><div class="routeToggle"><i style="color: #000" class="fa fa-play"></i></div></a>
-			<div class="routeDistance">10.3 mi</div>
-			
-			<!-- <div id="directions_panel" style="z-index: 99"></div> -->
+			<div class="routeName">East Route</div>
+			<a href = "#" class="play" data-divid="div1">
+				<div class="routeToggle"><i style="color: #000" class="fa fa-play"></i></div></a>
+			<div id="east-route-distance"></div>
 		</div>
+		<div class ="routeLister">
+			<div class="routeName">South Route</div>
+			<a href = "#" class="play" data-divid="div1">
+				<div class="routeToggle"><i style="color: #000" class="fa fa-play"></i></div></a>
+			<div id="south-route-distance"></div>
+		</div>
+		<div class ="routeLister">
+			<div class="routeName">West Route</div>
+			<a href = "#" class="play" data-divid="div1">
+				<div class="routeToggle"><i style="color: #000" class="fa fa-play"></i></div></a>
+			<div id="west-route-distance"></div>
+		</div>
+		<div class="hyperlapse-canvas"></div>
+
+		</div>
+
 		<!--  -->
 		<div id="route-progress-container">
 			<div class="progress">
@@ -185,13 +217,16 @@
 		})
 	})
 	$(document).ready(function(){
-	    $(".play").click(function () {
-	        var idname= $(this).data('divid');
-	        $("#"+idname).fadeIn('slow', function() {
-
-	        });
-	    });
+    $(".play").click(function () {
+  		//disableScroll();
+      //var idname = $(this).data('divid');
+      //$("#"+idname).fadeIn('slow', function() {
+      	// RENDER hyperlapse-canvas
+      });
+    });
 	});
+
+
 	</script>
 
 </body>		

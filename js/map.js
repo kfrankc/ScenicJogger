@@ -1,13 +1,19 @@
 console.log('got to map.js');
 // Inital location for map
 var position = [39.929692, -75.216831];
-var directionsDisplay;
+var directionsDisplayNorth;
+var directionsDisplayEast;
+var directionsDisplaySouth;
+var directionsDisplayWest;
 var directionsService = new google.maps.DirectionsService();
 var map;
 
 function initialize() {
   var latLng = new google.maps.LatLng(position[0], position[1]);
-  directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsDisplayNorth = new google.maps.DirectionsRenderer();
+  directionsDisplayEast = new google.maps.DirectionsRenderer();
+  directionsDisplaySouth = new google.maps.DirectionsRenderer();
+  directionsDisplayWest = new google.maps.DirectionsRenderer();
 
   var mapOptions = {
     zoom: 16, // initialize zoom level - the max value is 21
@@ -26,7 +32,10 @@ function initialize() {
   };
 
   map = new google.maps.Map(document.getElementById('googlemaps'), mapOptions);
-  directionsDisplay.setMap(map);
+  directionsDisplayNorth.setMap(map);
+  directionsDisplayEast.setMap(map);
+  directionsDisplaySouth.setMap(map);
+  directionsDisplayWest.setMap(map);
 
   var input = document.getElementById('searchBox');
   console.log(input);
@@ -85,6 +94,9 @@ function initialize() {
     console.log(startingLong);
     var radius = 3000;
     // set radius to be a constant 3,000 meters for now.
+    addYelpWaypoints(startingLat, startingLong, radius, 'North');
+    addYelpWaypoints(startingLat, startingLong, radius, 'East');
+    addYelpWaypoints(startingLat, startingLong, radius, 'South');
     addYelpWaypoints(startingLat, startingLong, radius, 'West');
   });
 }
@@ -113,8 +125,18 @@ function addYelpWaypoints(startingLat, startingLong, radius, direction) { // dir
       });
     }
     console.log(waypoints);
-    getOptimizedRouteLength(waypoints, startingLat, startingLong);
-    //for (var i = 0; i < data.)
+    if (direction === 'North') {
+      getOptimizedRouteLength(waypoints, startingLat, startingLong, 'North');
+    }
+    if (direction === 'East') {
+      getOptimizedRouteLength(waypoints, startingLat, startingLong, 'East');
+    }
+    if (direction === 'South') {
+      getOptimizedRouteLength(waypoints, startingLat, startingLong, 'South');
+    }
+    if (direction === 'West') {
+      getOptimizedRouteLength(waypoints, startingLat, startingLong, 'West');
+    }
   });
 }
 
@@ -159,7 +181,7 @@ function getOptimizedRoute(maxLength, startLocation, waypoints) {
 // We can generate 3 random routes, by selecting a random subset of the set of waypoints
 // which fall within the boundary radius and the direction.
 
-function getOptimizedRouteLength(waypoints, startingLat, startingLong) { // waypoints is an array
+function getOptimizedRouteLength(waypoints, startingLat, startingLong, direction) { // waypoints is an array
   console.log('number of waypoints: ' + waypoints.length);
   var start = new google.maps.LatLng(startingLat, startingLong);
   console.log(startingLat);
@@ -176,9 +198,20 @@ function getOptimizedRouteLength(waypoints, startingLat, startingLong) { // wayp
     console.log(response);
     //playHyperlapse(response);
     if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
+      if (direction === 'North') {
+        directionsDisplayNorth.setDirections(response);
+      }
+      if (direction === 'East') {
+        directionsDisplayEast.setDirections(response);
+      }
+      if (direction === 'South') {
+        directionsDisplaySouth.setDirections(response);
+      }
+      if (direction === 'West') {
+        directionsDisplayWest.setDirections(response);
+      }
       var route = response.routes[0];
-      var summaryPanel = document.getElementById('directions_panel');
+      //var summaryPanel = document.getElementById('directions_panel');
       //summaryPanel.innerHTML = '';
       // For each route, display summary information.
       var routeLength = 0.0;
@@ -192,6 +225,18 @@ function getOptimizedRouteLength(waypoints, startingLat, startingLong) { // wayp
         summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';*/
         routeSegmentLength = parseFloat(route.legs[i].distance.text);
         routeLength += routeSegmentLength;
+      }
+      if (direction === 'North') {
+        $('#north-route-distance').text(routeLength + ' mi');
+      }
+      if (direction === 'East') {
+        $('#east-route-distance').text(routeLength + ' mi');
+      }
+      if (direction === 'South') {
+        $('#south-route-distance').text(routeLength + ' mi');
+      }
+      if (direction === 'West') {
+        $('#west-route-distance').text(routeLength + ' mi');
       }
       console.log('Route Length: ' + routeLength);
     } else {
