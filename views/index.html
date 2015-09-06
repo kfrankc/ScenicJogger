@@ -120,21 +120,24 @@
 		top: 54px !important;
 		box-shadow: none !important;
 	}
-	.hyperlapse-canvas {
-		position: relative;
+	#hyperlapse-canvas {
+		position: fixed;
 		background: #fff;
 		box-sizing: border-box;
 		width: 600px;
-		height: 500px;
-		padding: 40px 10px 0px 10px;
+		height: 400px;
+		padding: 10px 10px 10px 10px;
 		transition-property: background,box-shadow;
 		transition-duration: 0.3s;
 		box-shadow: 2px 4px 6px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
 		/*z-index: 99;*/
-		left: 450px;
-		top: 5px;
-		margin-bottom: 10px;
-		z-index:5;
+		/*left: 450px;
+		top: 5px;*/
+		left: 50%;
+		margin-left: -300px;
+		bottom: 50%;
+		margin-bottom: -300px;
+		z-index:10;
 
 	}
 
@@ -208,34 +211,33 @@
 		</div>
 
 		<div class ="routeLister">
-			<div class="routeName">North Route</div>
-			<a href = "#" class="play" data-divid="div1">
-			<div class="routeToggle"><i style="color: #000" class="fa fa-play"></i></div></a>
+			<span class="routeName">North Route</span>
+			<span class="play"><i style="color: #000" class="fa fa-play"></i></span>
 			<div id="north-route-distance"></div>
 		</div>
 		<div class ="routeLister">
 			<div class="routeName">East Route</div>
-			<a href = "#" class="play" data-divid="div1">
-				<div class="routeToggle"><i style="color: #000" class="fa fa-play"></i></div></a>
+			<div class="play"><i style="color: #000" class="fa fa-play"></i></div>
 			<div id="east-route-distance"></div>
 		</div>
 		<div class ="routeLister">
 			<div class="routeName">South Route</div>
-			<a href = "#" class="play" data-divid="div1">
-				<div class="routeToggle"><i style="color: #000" class="fa fa-play"></i></div></a>
+			<div class="play"><i style="color: #000" class="fa fa-play"></i></div>
 			<div id="south-route-distance"></div>
 		</div>
 		<div class ="routeLister">
 			<div class="routeName">West Route</div>
-			<a href = "#" class="play" data-divid="div1">
-				<div class="routeToggle"><i style="color: #000" class="fa fa-play"></i></div></a>
+			<div class="play"><i style="color: #000" class="fa fa-play"></i></div>
 			<div id="west-route-distance"></div>
 		</div>
+<<<<<<< Updated upstream
 		<div class="hyperlapse-canvas">
 
 		</div>
 
 		</div>
+=======
+>>>>>>> Stashed changes
 
 		<!--  -->
 		<div id="route-progress-container">
@@ -244,7 +246,6 @@
 			</div>
 		</div>
 	</div>
-	<div id="hyperlapse">Hello</div>
 
 	<script type="text/javascript">
 	jQuery(document).ready(function() {
@@ -261,15 +262,32 @@
 			$('#searchContainer').animate({left: '0px'}, 300, 'linear');
 			$('.pac-container').animate({left: '0px !important'}, 300, 'linear');
 		})
-	})
-	$(document).ready(function(){
-    $(".play").click(function () {
-  		//disableScroll();
-      //var idname = $(this).data('divid');
-      //$("#"+idname).fadeIn('slow', function() {
-      	// RENDER hyperlapse-canvas
-      });
-    });
+	});		
+	$('body').on('click', '.play', function() {
+		$('body').append('<div id="hyperlapse-canvas">' + 
+												'<div id="route-progress-container">' +
+		                    	'<div class="progress">' +
+		                        '<div class="progress-bar"></div>' +
+		                      '</div>' +
+		                    '</div>' +
+		                    '<div id="route"></div>' +
+		                  '</div>');
+		console.log(hyperlapseResponses);
+		var thisIndex = $('.play').index($(this));
+		console.log('this index: ' + thisIndex);
+		if (thisIndex === 0) {
+			playHyperlapse(hyperlapseResponses.northResponse);
+		}
+		if (thisIndex === 1) {
+			playHyperlapse(hyperlapseResponses.eastResponse);
+		}
+		if (thisIndex === 2) {
+			playHyperlapse(hyperlapseResponses.southResponse);
+		}
+		if (thisIndex === 3) {
+			playHyperlapse(hyperlapseResponses.westResponse);
+		}
+
 	});
 
 

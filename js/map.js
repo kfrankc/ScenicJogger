@@ -7,6 +7,7 @@ var directionsDisplaySouth;
 var directionsDisplayWest;
 var directionsService = new google.maps.DirectionsService();
 var map;
+var hyperlapseResponses = {};
 
 function initialize() {
   var latLng = new google.maps.LatLng(position[0], position[1]);
@@ -200,15 +201,19 @@ function getOptimizedRouteLength(waypoints, startingLat, startingLong, direction
     if (status == google.maps.DirectionsStatus.OK) {
       if (direction === 'North') {
         directionsDisplayNorth.setDirections(response);
+        hyperlapseResponses.northResponse = response;
       }
       if (direction === 'East') {
         directionsDisplayEast.setDirections(response);
+        hyperlapseResponses.eastResponse = response;
       }
       if (direction === 'South') {
         directionsDisplaySouth.setDirections(response);
+        hyperlapseResponses.southResponse = response;
       }
       if (direction === 'West') {
         directionsDisplayWest.setDirections(response);
+        hyperlapseResponses.westResponse = response;
       }
       var route = response.routes[0];
       //var summaryPanel = document.getElementById('directions_panel');
@@ -247,13 +252,13 @@ function getOptimizedRouteLength(waypoints, startingLat, startingLong, direction
 }
 
 function playHyperlapse(hyperlapseResponse) {
-  var routeSequence = StreetviewSequence('#hyperlapse', {
+  var routeSequence = StreetviewSequence('#hyperlapse-canvas', {
     route: hyperlapseResponse,
     duration: 10000,
     key: 'AIzaSyD51Ia5v17tRyd5SCem4RQ1QveLR6Y83Fk',
     loop: true,
-    width: 585,
-    height: 585
+    width: 600,
+    height: 600
   });
   var $routeProgressContainer = $("#route-progress-container");
   var $routeProgressBar = $routeProgressContainer.find('.progress-bar');
