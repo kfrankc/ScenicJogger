@@ -1,10 +1,19 @@
-#googlemaps {
+@font-face {
+  font-family: "Helvetica";
+  src: "HelveticaNueue-Thin.otf" format("truetype");
+}
+body {
+  background: #fff;
+}
+  #googlemaps {
   height: 100%;
   width: 100%;
+  float: right;
   position: fixed !important;
   top: 0;
-  left: 0;
-  z-index: 0; /* Set z-index to 0 as it will be on a layer below the contact form */
+  left: 0px;
+  /*box-shadow: 0 5px 40px rgba(0,0,0,0.4),0 -1px 0px rgba(0,0,0,0.02);*/
+  z-index: 1; /* Set z-index to 0 as it will be on a layer below the contact form */
   opacity: 1;
 }
 

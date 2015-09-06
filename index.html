@@ -10,17 +10,20 @@
 	<meta name="viewport" content="user-scalable=no" />
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+
 	<link rel="shortcut icon" type="image/png" href="favicon.png" />
 
-	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
 	<script src="jquery-1.11.3.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> 
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
 	<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js"></script>
-  <script src="src/StreetviewSequence.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js"></script>
+	<script src="src/StreetviewSequence.js"></script>
 	<script src="js/map.js"></script>
 	<script src="js/yelpCopy.js"></script>
 
@@ -32,7 +35,7 @@
 		position: absolute; 
 		top: 13px; 
 		left: 18px; 
-		z-index: 99;     
+		z-index: 1;     
 		color: inherit;
 		font-size: 15px;
 		margin: 0 !important;
@@ -45,6 +48,7 @@
 		transition-duration: 0.3s; 
 		border-color: transparent;
 		font-family: 'Open Sans', sans-serif;
+		background: transparent;
 	}
 	#searchContainer { 
 		position: relative;
@@ -53,11 +57,16 @@
 		box-sizing: border-box;
 		width: 370px;
 		height: 48px;
+		left: 0px;
 		border-bottom: 1px solid transparent;
 		padding: 12px 30px 11px 64px;
 		transition-property: background,box-shadow;
 		transition-duration: 0.3s;
 		box-shadow: 0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
+		z-index: 1;
+	}
+	#sideBarContainer { 
+		z-index: 0;
 	}
 	#searchIcon {
 		color: #B7B7B7; 
@@ -72,16 +81,51 @@
 		top: 54px !important;
 		box-shadow: none !important;
 	}
-	#directions_panel {
+	.routeLister {
 		position: relative;
 		background: #fff;
 		box-sizing: border-box;
-		width: 370px;
-		height: 48px;
-		padding: 12px 10px 11px 64px;
+		width: 290px;
+		padding: 40px 10px 0px 10px;
 		transition-property: background,box-shadow;
 		transition-duration: 0.3s;
-		box-shadow: 0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
+		box-shadow: 2px 4px 6px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
+		/*z-index: 99;*/
+		left: -2px;
+		top: 15px;
+		margin-bottom: 10px;
+	}
+	.routeDistance {
+		float: right;
+		position: relative;
+		margin-right: 30px;
+		font-family: 'Open Sans', sans-serif;
+		color: #68A517;
+		margin-top: -30px;
+	}
+	.routeToggle {
+		float: right;
+		position: relative;
+		margin-top: -28px;
+	}
+	.routeName {
+		float: left;
+		position: relative;
+		font-family: 'Open Sans', sans-serif;
+		font-weight: 300;
+		margin-top: -30px;
+	}
+	#sideHeader {
+		background-color: #5987FB;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 300px;
+	}
+	#sideHeader  h3{
+		padding-left: 20px;
+		color: #fff;
+		font-family: 'Open Sans', sans-serif;
 	}
 	</style>
 
@@ -90,16 +134,48 @@
 		<input id="searchBox" placeholder= "Enter a location" type="text"></input>
 		<i id="searchIcon" onmouseenter="this.style.color='#4285f4';" onmouseleave="this.style.color='#B7B7B7';" class="fa fa-search fa-lg"></i>
 	</div>
-	<div id="directions_panel" style="z-index: 99"></div>
-	<div id="route-progress-container">
-      <div class="progress">
-          <div class="progress-bar"></div>
-      </div>
-  </div>
-  <div id="hyperlapse"></div>
-
+	<div id="sideBarContainer">
+		<div id="sideHeader">
+			<h3>Directions <i style="position: fixed; top: 23px; margin-left: 150px; cursor: pointer" class="fa fa-times"></i></h3>
+		</div>
+		<div class ="routeLister">
+			<div class="routeName">Route 1</div>
+			<div class="routeToggle"><i style="color: #000" class="fa fa-chevron-down"></i></div>
+			<div class="routeDistance">11.4 mi</div>
+			
+			<!-- <div id="directions_panel" style="z-index: 99"></div> -->
+		</div>
+		<div class ="routeLister">
+			<div class="routeName">Route 2</div>
+			<div class="routeToggle"><i style="color: #000" class="fa fa-chevron-down"></i></div>
+			<div class="routeDistance">10.3 mi</div>
+			
+			<!-- <div id="directions_panel" style="z-index: 99"></div> -->
+		</div>
+		<!--  -->
+		<div id="route-progress-container">
+			<div class="progress">
+				<div class="progress-bar"></div>
+			</div>
+		</div>
+	</div>
+	<div id="hyperlapse"></div>
 	<script type="text/javascript">
-
+	jQuery(document).ready(function() {
+		$('.fa-search').on('click', function() {
+			$('#googlemaps').animate({left: '300px'}, 300, 'linear');
+			$('#searchContainer').animate({left: '300px'}, 300, 'linear');
+			$('.pac-container').animate({left: '308px !important'}, 300, 'linear');
+		})
+		$('.fa-chevron-down').on('click', function() {
+			$(this).removeClass('fa-chevron-down').addClass('fa-minus');
+		})
+		$('.fa-times').on('click', function() {
+			$('#googlemaps').animate({left: '0px'}, 300, 'linear');
+			$('#searchContainer').animate({left: '0px'}, 300, 'linear');
+			$('.pac-container').animate({left: '0px !important'}, 300, 'linear');
+		})
+	})
 	</script>
 
 </body>		
