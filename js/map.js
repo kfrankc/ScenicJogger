@@ -87,6 +87,9 @@ function initialize() {
     });
   }*/
 
+
+  
+  
   var waypoints = [];
   waypoints.push({
     location: 'Comcast Center, Philadelphia, PA',
@@ -166,7 +169,11 @@ function getOptimizedRouteLength(waypoints) { // waypoints is an array
   console.log('got here');
   directionsService.route(request, function(response, status) {
     console.log(response);
+<<<<<<< HEAD
     // playHyperlapse(response);
+=======
+    //playHyperlapse(response);
+>>>>>>> 9c20607c349678614e4b5a37646d3cf47007627a
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
       var route = response.routes[0];

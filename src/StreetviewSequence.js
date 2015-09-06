@@ -43,7 +43,7 @@
             loop: false,
             pitchSkewStart: 0,
             sensor: false,
-            totalFrames: 1000,
+            totalFrames: 5000,
             width: 300
         };
         var headingCache = {};
@@ -81,7 +81,6 @@
                 { currentTime: 0 },
                 options.duration / 700,
                 {
-
                     currentTime: options.duration,
                     onComplete: ended,
                     onReverseComplete: ended,
