@@ -135,6 +135,7 @@
 	</style>
 
 	<div id="googlemaps"></div>
+
 	<div id="searchContainer">
 		<input id="searchBox" placeholder= "Enter a location" type="text"></input>
 		<i id="searchIcon" onmouseenter="this.style.color='#4285f4';" onmouseleave="this.style.color='#B7B7B7';" class="fa fa-search fa-lg"></i>
@@ -145,14 +146,15 @@
 		</div>
 		<div class ="routeLister">
 			<div class="routeName">Route 1</div>
-			<div class="routeToggle"><i style="color: #000" class="fa fa-chevron-down"></i></div>
+			<a href = "#" class="play" data-divid="div1">
+			<div class="routeToggle"><i style="color: #000" class="fa fa-play"></i></div></a>
 			<div class="routeDistance">11.4 mi</div>
 			
 			<!-- <div id="directions_panel" style="z-index: 99"></div> -->
 		</div>
 		<div class ="routeLister">
 			<div class="routeName">Route 2</div>
-			<div class="routeToggle"><i style="color: #000" class="fa fa-chevron-down"></i></div>
+			<a href = "#" class="play" data-divid="div1"><div class="routeToggle"><i style="color: #000" class="fa fa-play"></i></div></a>
 			<div class="routeDistance">10.3 mi</div>
 			
 			<!-- <div id="directions_panel" style="z-index: 99"></div> -->
@@ -164,7 +166,8 @@
 			</div>
 		</div>
 	</div>
-	<div id="hyperlapse"></div>
+	<div id="hyperlapse">Hello</div>
+
 	<script type="text/javascript">
 	jQuery(document).ready(function() {
 		$('.fa-search').on('click', function() {
@@ -181,6 +184,14 @@
 			$('.pac-container').animate({left: '0px !important'}, 300, 'linear');
 		})
 	})
+	$(document).ready(function(){
+	    $(".play").click(function () {
+	        var idname= $(this).data('divid');
+	        $("#"+idname).fadeIn('slow', function() {
+
+	        });
+	    });
+	});
 	</script>
 
 </body>		
