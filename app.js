@@ -46,7 +46,21 @@ app.get('/twilio', function (req, res) {
 		client.messages.create({ 
 			to: numbers, 
 			from: "+16504223049", // ruthie's twilio
-			body: "Thanks for using ScenicJogging! Here is your Route: " + req.query['maplink'], 
+			body: "Thanks for using ScenicJogging! Here is your Route: 
+					North: FDR Park
+					North: Mifflin Park
+					North: Philadelphia Korean War Memorial at Penn's Landing
+
+					East: Mifflin Park
+					East: Dickinson Square Park
+
+					South: The Navy Yard
+					South: FDR Skatepark
+
+					West: FDR Park
+					West: The Navy Yard
+					West: FDR Skatepark
+					West: Philadelphia Korean War Memorial at Penn's Landing", 
 		}, function(err, message) { 
 			console.log(message.sid); 
 		});
