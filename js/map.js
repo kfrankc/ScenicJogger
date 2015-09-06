@@ -274,7 +274,7 @@ function playHyperlapse(hyperlapseResponse) {
     route: hyperlapseResponse,
     duration: 10000,
     key: 'AIzaSyD51Ia5v17tRyd5SCem4RQ1QveLR6Y83Fk',
-    loop: true,
+    loop: false,
     width: 600,
     height: 600
   });
