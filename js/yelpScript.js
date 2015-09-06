@@ -13,11 +13,10 @@ var async = require('async');
 
 
 function getPlaces(lat, lng, radius, placesCallback) {
-	yelp.search({category_filter: 'landmarks,parks,gardens,lakes', radius_filter: radius, ll: lat + ',' + lng}, function(error, data) {
+	yelp.search({category_filter: 'landmarks,parks,gardens,lakes', sort: 1, radius_filter: radius, ll: lat + ',' + lng}, function(error, data) {
 	 	if(error) console.error('Error getting places: ' + error);
 	  var places = data.businesses;
-    console.log(places.length);
-	  var i =0
+/*	  var i =0
 	  async.eachSeries(places, function iterator(place, callback){
 	  	https.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + 
   		place.location.display_address + '&bounds=40,-75.0|39.8,-75.5&key=AIzaSyD5wgNjyAarvIDk3WF-ISlYIRiCBKc4kEc', function(response) {
@@ -33,7 +32,7 @@ function getPlaces(lat, lng, radius, placesCallback) {
 					callback();
 			  });
 		  });
-	  }, function done() {
+	  }, function done() {*/
   			var sectoredPlaces = {
   				eastPlaces: [],
   				northPlaces: [],
@@ -42,16 +41,16 @@ function getPlaces(lat, lng, radius, placesCallback) {
   			};
   			for(var j = 0; j < places.length; j++) {
           var p = places[j];
-          console.log(p);
-  				if (-75.5  < p.location.lng && p.location.lng < -75.0 && 39.8 < p.location.lat && p.location.lat < 40) {
-  					if (p.location.lat > lat) {sectoredPlaces.eastPlaces.push(p);}
-  					if (p.location.lng > lng) {sectoredPlaces.northPlaces.push(p);}
-  					if (p.location.lat < lat) {sectoredPlaces.westPlaces.push(p);}
-  					if (p.location.lng < lng) {sectoredPlaces.southPlaces.push(p);}			  					  					
+          console.log(p.distance);
+  				if (-75.5  < p.location.coordinate.longitude && p.location.coordinate.longitude < -75.0 && 39.8 < p.location.coordinate.latitude && p.location.coordinate.latitude < 40) {
+  					if (p.location.coordinate.latitude > lat) {sectoredPlaces.northPlaces.push(p);}
+  					if (p.location.coordinate.longitude > lng) {sectoredPlaces.eastPlaces.push(p);}
+  					if (p.location.coordinate.latitude < lat) {sectoredPlaces.southPlaces.push(p);}
+  					if (p.location.coordinate.longitude < lng) {sectoredPlaces.westPlaces.push(p);}			  					  					
   				}
   			}
         placesCallback(sectoredPlaces);
-			});
+			//});
 	});
 }
 exports.getPlaces = getPlaces;

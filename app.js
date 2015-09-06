@@ -55,11 +55,8 @@ app.get('/twilio', function (req, res) {
 
 app.get('/yelpScript', function (req, res) {
 	var lat = req.query.lat;
-	console.log(lat);
 	var long = req.query.long;
-	console.log(long);
 	var radius = req.query.radius;
-	console.log(radius);
 	//var sectoredPlaces = yelpScript.getPlaces(lat, long, radius);
 	//console.log(sectoredPlaces);
 	yelpScript.getPlaces(lat, long, radius, function(sectoredPlaces) {

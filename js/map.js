@@ -77,28 +77,33 @@ function initialize() {
 
     infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
     infowindow.open(map, marker);
+
+    console.log(place.geometry.location);
+    var startingLat = place.geometry.location.G;
+    var startingLong = place.geometry.location.K;
+    console.log(startingLat);
+    console.log(startingLong);
+    var radius = 3000;
+    // set radius to be a constant 3,000 meters for now.
+    addYelpWaypoints(startingLat, startingLong, radius, 'West');
   });
+}
 
-
-  /*if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      map.setCenter(initialLocation);
-    });
-  }*/
-
-
-  
-  
+function addYelpWaypoints(startingLat, startingLong, radius, direction) { // direction is a string
   var waypoints = [];
   $.ajax({
-    url: '/yelpScript?lat=39.901&long=-75.172&radius=3000'
+    url: '/yelpScript?lat=' + startingLat + '&long=' + startingLong + '&radius=' + radius
   }).done(function(data) {
     console.log(data);
-    for (var i = 0; i < data.eastPlaces.length; i++) {
-      var eastPlace = data.eastPlaces[i];
-      var lat = eastPlace.location.coordinate.latitude;
-      var long = eastPlace.location.coordinate.longitude;
+    var directionalPlaces;
+    if (direction === 'North') {directionalPlaces = data.northPlaces;}
+    if (direction === 'South') {directionalPlaces = data.southPlaces;}
+    if (direction === 'East') {directionalPlaces = data.eastPlaces;}
+    if (direction === 'West') {directionalPlaces = data.westPlaces;}
+    for (var i = 0; i < directionalPlaces.length; i++) {
+      var directionalPlace = directionalPlaces[i];
+      var lat = directionalPlace.location.coordinate.latitude;
+      var long = directionalPlace.location.coordinate.longitude;
       console.log('lat: ' + lat);
       console.log('long: ' + long);
       var googleLatLng = new google.maps.LatLng(lat, long);
@@ -108,29 +113,9 @@ function initialize() {
       });
     }
     console.log(waypoints);
-    getOptimizedRouteLength(waypoints);
+    getOptimizedRouteLength(waypoints, startingLat, startingLong);
     //for (var i = 0; i < data.)
   });
-  /*waypoints.push({
-    location: 'Comcast Center, Philadelphia, PA',
-    stopover: true
-  });
-  waypoints.push({
-    location: 'The Navy Yard, 4747 S Broad St, Philadelphia, PA 19112',
-    stopover: true
-  });
-  waypoints.push({
-    location: 'FDR Park, 1500 Pattison Ave, Philadelphia, PA 19145',
-    stopover: true
-  });
-  waypoints.push({
-    location: '1609 Snyder Ave, Philadelphia, PA 19145',
-    stopover: true
-  });
-  waypoints.push({
-    location: 'Mifflin Park, 6th St & Ritner St, Philadelphia, PA 19148',
-    stopover: true
-  });*/
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -174,8 +159,11 @@ function getOptimizedRoute(maxLength, startLocation, waypoints) {
 // We can generate 3 random routes, by selecting a random subset of the set of waypoints
 // which fall within the boundary radius and the direction.
 
-function getOptimizedRouteLength(waypoints) { // waypoints is an array
-  var start = 'Rodin College House, Philadelphia, PA';
+function getOptimizedRouteLength(waypoints, startingLat, startingLong) { // waypoints is an array
+  console.log('number of waypoints: ' + waypoints.length);
+  var start = new google.maps.LatLng(startingLat, startingLong);
+  console.log(startingLat);
+  console.log(startingLong);
   var request = {
     origin: start,
     destination: start, // want to end where we started
