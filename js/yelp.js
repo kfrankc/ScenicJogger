@@ -7,6 +7,7 @@ var yelp = require("yelp").createClient({
 var geocoderProvider = 'google';
 var httpsAdapter = 'https';
 var https = require('https');
+var exports = module.exports = {};
 var async = require('async');
 // optionnal
 var extra = {
@@ -59,3 +60,4 @@ function getPlaces(lat, lng, radius){
 			});
 	});
 }
+exports.getPlaces = getPlaces;
