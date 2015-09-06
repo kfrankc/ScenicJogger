@@ -91,7 +91,27 @@ function initialize() {
   
   
   var waypoints = [];
-  waypoints.push({
+  $.ajax({
+    url: '/yelpScript?lat=39.901&long=-75.172&radius=3000'
+  }).done(function(data) {
+    console.log(data);
+    for (var i = 0; i < data.eastPlaces.length; i++) {
+      var eastPlace = data.eastPlaces[i];
+      var lat = eastPlace.location.coordinate.latitude;
+      var long = eastPlace.location.coordinate.longitude;
+      console.log('lat: ' + lat);
+      console.log('long: ' + long);
+      var googleLatLng = new google.maps.LatLng(lat, long);
+      waypoints.push({
+        location: googleLatLng,
+        stopover: false
+      });
+    }
+    console.log(waypoints);
+    getOptimizedRouteLength(waypoints);
+    //for (var i = 0; i < data.)
+  });
+  /*waypoints.push({
     location: 'Comcast Center, Philadelphia, PA',
     stopover: true
   });
@@ -110,10 +130,7 @@ function initialize() {
   waypoints.push({
     location: 'Mifflin Park, 6th St & Ritner St, Philadelphia, PA 19148',
     stopover: true
-  });
-
-
-  getOptimizedRouteLength(waypoints);
+  });*/
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -174,17 +191,17 @@ function getOptimizedRouteLength(waypoints) { // waypoints is an array
       directionsDisplay.setDirections(response);
       var route = response.routes[0];
       var summaryPanel = document.getElementById('directions_panel');
-      summaryPanel.innerHTML = '';
+      //summaryPanel.innerHTML = '';
       // For each route, display summary information.
       var routeLength = 0.0;
       var routeSegmentLength;
       for (var i = 0; i < route.legs.length; i++) {
         var routeSegment = i + 1;
-        summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+        /*summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
             '</b><br>';
         summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
         summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-        summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+        summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';*/
         routeSegmentLength = parseFloat(route.legs[i].distance.text);
         routeLength += routeSegmentLength;
       }

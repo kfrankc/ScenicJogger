@@ -12,12 +12,13 @@ var async = require('async');
 */
 
 
-function getPlaces(lat, lng, radius){
+function getPlaces(lat, lng, radius, placesCallback) {
 	yelp.search({category_filter: 'landmarks,parks,gardens,lakes', radius_filter: radius, ll: lat + ',' + lng}, function(error, data) {
 	 	if(error) console.error('Error getting places: ' + error);
 	  var places = data.businesses;
+    console.log(places.length);
 	  var i =0
-	  async.eachSeries(places, function iteratior(place, callback){
+	  async.eachSeries(places, function iterator(place, callback){
 	  	https.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + 
   		place.location.display_address + '&bounds=40,-75.0|39.8,-75.5&key=AIzaSyD5wgNjyAarvIDk3WF-ISlYIRiCBKc4kEc', function(response) {
 	      var body = '';
@@ -39,15 +40,17 @@ function getPlaces(lat, lng, radius){
   				southPlaces: [],
   				westPlaces: [],
   			};
-  			places.forEach(function(p) {
+  			for(var j = 0; j < places.length; j++) {
+          var p = places[j];
+          console.log(p);
   				if (-75.5  < p.location.lng && p.location.lng < -75.0 && 39.8 < p.location.lat && p.location.lat < 40) {
-  					if (p.location.lat > lat) {sectoredPlaces.eastPlaces.push(p);console.log('1');}
-  					if (p.location.lng > lng) {sectoredPlaces.northPlaces.push(p);console.log('2');}
-  					if (p.location.lat < lat) {sectoredPlaces.westPlaces.push(p);console.log('3');}
-  					if (p.location.lng < lng) {sectoredPlaces.southPlaces.push(p);console.log('4');}			  					  					
+  					if (p.location.lat > lat) {sectoredPlaces.eastPlaces.push(p);}
+  					if (p.location.lng > lng) {sectoredPlaces.northPlaces.push(p);}
+  					if (p.location.lat < lat) {sectoredPlaces.westPlaces.push(p);}
+  					if (p.location.lng < lng) {sectoredPlaces.southPlaces.push(p);}			  					  					
   				}
-  			});
-  			return sectoredPlaces;
+  			}
+        placesCallback(sectoredPlaces);
 			});
 	});
 }
