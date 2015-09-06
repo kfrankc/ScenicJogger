@@ -64,6 +64,13 @@
 		box-shadow: 0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
 		z-index: 1;
 	}
+	#shareLogo { 
+		position:absolute;
+		float:right;
+		top: 850px; 
+		left: 1712px; 
+		z-index: 6;     
+	}
 	#logoContainer { 
 		float:right;
 		position:absolute;
@@ -221,6 +228,12 @@
 		</div>
 	</div>
 	<div id="logo"><i class="fa fa-compass fa-5x"></i></div>
+	<div id="shareLogo"><i class="fa fa-share-alt-square fa-5x">		
+		<form action="http://localhost:8001/" method="get">
+		    <input type="input"
+		         name="maplink" id="frm1_submit" />
+		</form>
+	</i></div>
 	<div id="searchContainer">
 		<input id="searchBox" placeholder= "Enter a location" type="text"></input>
 		<i id="searchIcon" onmouseenter="this.style.color='#4285f4';" onmouseleave="this.style.color='#B7B7B7';" class="fa fa-search fa-lg"></i>
