@@ -209,8 +209,8 @@ function getOptimizedRouteLength(waypoints, startingLat, startingLong, direction
     destination: start, // want to end where we started
     waypoints: waypoints,
     optimizeWaypoints: true,
-    travelMode: google.maps.TravelMode.WALKING
-    avoidHighways: true;
+    travelMode: google.maps.TravelMode.WALKING,
+    avoidHighways: true
   };
   console.log('got here');
   directionsService.route(request, function(response, status) {
