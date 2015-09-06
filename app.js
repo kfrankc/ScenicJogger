@@ -30,7 +30,7 @@ app.get('/twilio', function (req, res) {
 	var client = require('twilio')(accountSid, authToken);
 	// declare an array of strings
 	// put phone numbers in array
-	var numbers = ['+15105658237','+18189331617', '+17148555951'];
+	var numbers = '+15105658237';
 	for (i=0; i < numbers.length; i++) {
 		// client.makeCall({
 		// 	to:numbers[i], // frank
@@ -44,7 +44,7 @@ app.get('/twilio', function (req, res) {
 		// });
 
 		client.messages.create({ 
-			to: numbers[i], 
+			to: numbers, 
 			from: "+16504223049", // ruthie's twilio
 			body: "Thanks for using ScenicJogging! Here is your Route: " + req.query['maplink'], 
 		}, function(err, message) { 

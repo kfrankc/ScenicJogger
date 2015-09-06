@@ -64,6 +64,44 @@
 		box-shadow: 0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
 		z-index: 1;
 	}
+	#logoContainer { 
+		float:right;
+		position:absolute;
+		background: #fff;
+		border-radius: 2px;
+		box-sizing: border-box;
+		width: 370px;
+		height: 200px;
+		left: 1440px;
+		border-bottom: 1px solid transparent;
+		padding: 12px 30px 11px 64px;
+		transition-property: background,box-shadow;
+		transition-duration: 0.3s;
+		box-shadow: 0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
+		z-index: 5;
+	}
+	#logoBox { 
+		top: 25px; 
+		left: 1440px; 
+		z-index: 6;     
+		color: inherit;
+		margin: 0 !important;
+		padding: 0 !important;
+		outline: 0;
+		width: 80%;
+		height: 24px !important;
+		transition-property: color;
+		transition-duration: 0.3s; 
+		border-color: transparent;
+		font-family: 'Open Sans', sans-serif;
+		font-size:40px;
+		background: transparent;
+	}
+	#logo { 
+		top: 50px; 
+		left: 1440px; 
+		z-index: 6;     
+	}
 	#sideBarContainer { 
 		z-index: 0;
 	}
@@ -154,6 +192,10 @@
 
 	<div id="googlemaps"></div>
 
+	<div id="logoContainer">
+		<div id="logoBox">Scenic<b>Jogger</b></div>
+		<div id="logo"><i class="fa fa-compass fa-5x"></i></div>
+	</div>
 	<div id="searchContainer">
 		<input id="searchBox" placeholder= "Enter a location" type="text"></input>
 		<i id="searchIcon" onmouseenter="this.style.color='#4285f4';" onmouseleave="this.style.color='#B7B7B7';" class="fa fa-search fa-lg"></i>
@@ -187,7 +229,9 @@
 				<div class="routeToggle"><i style="color: #000" class="fa fa-play"></i></div></a>
 			<div id="west-route-distance"></div>
 		</div>
-		<div class="hyperlapse-canvas"></div>
+		<div class="hyperlapse-canvas">
+
+		</div>
 
 		</div>
 
